@@ -4,8 +4,6 @@ from database import *
 app = Flask(__name__)
 
 db = Database('neo4j://localhost:7687', 'neo4j', '1234')
-db.connection()
-
 
 @app.route('/')
 def index():
