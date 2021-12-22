@@ -1,10 +1,12 @@
 from flask import Flask, jsonify
 from neo4j.work import result
 from database import *
+from flask_cors import CORS
 
 app = Flask(__name__)
-
 db = Database('neo4j://localhost:7687', 'neo4j', '1234')
+
+CORS(app)
 
 @app.route('/')
 def index():
