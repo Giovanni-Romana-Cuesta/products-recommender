@@ -1,4 +1,5 @@
 from flask import Flask, jsonify
+from neo4j.work import result
 from database import *
 
 app = Flask(__name__)
@@ -8,6 +9,7 @@ db = Database('neo4j://localhost:7687', 'neo4j', '1234')
 @app.route('/')
 def index():
     return '<h1>Bienevenid@</h1>'
+
 
 @app.route('/users', methods=['GET'])
 def getUsers():
@@ -34,6 +36,27 @@ def getOrders():
     for order in orders:
         result.append(order["o"])
     return jsonify({"orders": result})
+
+@app.route('/orders/<string:userID>')
+def getOrdersByUser(userID):
+    orders = db.getOrdersByUser(userID)
+    result = []
+    for order in orders:
+        result.append(order["orders"])
+    for i in result:
+        products = db.getOrderProducts(i["orderID"])
+        aux = []
+        for p in products:
+            aux.append(p["products"])
+        i['products'] = aux
+    return jsonify({"orders": result})
+
+
+
+@app.route('/ordersProducts')
+def getOrdersProducts():
+    products = db.getOrderProducts("00001")
+    return jsonify(products)
 
 
 
