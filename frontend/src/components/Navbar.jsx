@@ -3,35 +3,35 @@ import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   return (
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
+      <div className="container-fluid">
+        <a className="navbar-brand" href="#">
           RECOMENDAPP
         </a>
         <button
-          class="navbar-toggler"
+          className="navbar-toggler"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarColor01"
           aria-controls="navbarColor01"
           aria-expanded="false"
           aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
+          <span className="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse" id="navbarColor01">
-          <ul class="navbar-nav me-auto">
-            <li class="nav-item">
-              <Link to="/">
-                <a class="nav-link" href="#">
-                  Mis compras
+        <div className="collapse navbar-collapse" id="navbarColor01">
+          <ul className="navbar-nav me-auto">
+            <li className="nav-item">
+              <Link to="/" className="link">
+                <a className="nav-link" href="#">
+                  <i className="fas fa-shopping-bag"></i> Mis compras
                 </a>
               </Link>
             </li>
-            <li class="nav-item">
-              <Link to="recomendaciones">
-                <a class="nav-link" href="#">
-                  Recomendaciones
+            <li className="nav-item">
+              <Link to="recomendaciones" className="link">
+                <a className="nav-link" href="#">
+                  <i className="fas fa-lightbulb"></i> Recomendaciones
                 </a>
               </Link>
             </li>
