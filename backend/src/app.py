@@ -20,5 +20,27 @@ def getUsers():
     return jsonify({"users": usersList})
 
 
+@app.route('/products', methods=['GET'])
+def getProducts():
+    products = db.getProducts()
+    result = []
+    for product in products:
+        result.append(product["p"])
+    return jsonify({"products": result})
+
+
+@app.route('/orders', methods=['GET'])
+def getOrders():
+    orders = db.getOrders()
+    result = []
+    for order in orders:
+        result.append(order["o"])
+    return jsonify({"orders": result})
+
+
+
+
+
+
 if __name__ == '__main__':
     app.run(debug=True, port=4000)
