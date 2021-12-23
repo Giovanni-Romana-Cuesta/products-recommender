@@ -1,103 +1,63 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import Banner from '../components/Banner';
 
 const Compras = () => {
+  const url = 'http://localhost:4000/orders/123456789';
+  const [data, setData] = useState();
+  const fetchApi = async () => {
+    const response = await fetch(url);
+    const responseJSON = await response.json();
+    setData(responseJSON[0]);
+  };
+
+  useEffect(() => {
+    fetchApi();
+  }, []);
+
   return (
     <div className="p-4">
-      <h1>
-        <i class="fas fa-shopping-bag"></i> Mis compras
-      </h1>
-      <div class="alert alert-dismissible alert-secondary">
-        <strong>¿Ya no sabes que comprar?</strong>
-        {'  '}Puedes hacer{' '}
-        <a href="#" class="alert-link">
-          click aquí
-        </a>
-        , para ver un par de recomendaciones
-      </div>
-      <div class="accordion">
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="headingOne">
-            <button
-              class="accordion-button"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#collapseOne"
-              aria-expanded="true"
-              aria-controls="collapseOne">
-              Accordion Item #1
-            </button>
-          </h2>
-          <div
-            id="collapseOne"
-            class="accordion-collapse collapse show"
-            aria-labelledby="headingOne"
-            data-bs-parent="#accordionExample">
-            <div class="accordion-body">
-              <strong>This is the first item's accordion body.</strong> It is shown by default,
-              until the collapse plugin adds the appropriate classes that we use to style each
-              element. These classes control the overall appearance, as well as the showing and
-              hiding via CSS transitions. You can modify any of this with custom CSS or overriding
-              our default variables. It's also worth noting that just about any HTML can go within
-              the <code>.accordion-body</code>, though the transition does limit overflow.
-            </div>
-          </div>
-        </div>
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="headingTwo">
-            <button
-              class="accordion-button collapsed"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#collapseTwo"
-              aria-expanded="false"
-              aria-controls="collapseTwo">
-              Accordion Item #2
-            </button>
-          </h2>
-          <div
-            id="collapseTwo"
-            class="accordion-collapse collapse"
-            aria-labelledby="headingTwo"
-            data-bs-parent="#accordionExample">
-            <div class="accordion-body">
-              <strong>This is the second item's accordion body.</strong> It is hidden by default,
-              until the collapse plugin adds the appropriate classes that we use to style each
-              element. These classes control the overall appearance, as well as the showing and
-              hiding via CSS transitions. You can modify any of this with custom CSS or overriding
-              our default variables. It's also worth noting that just about any HTML can go within
-              the <code>.accordion-body</code>, though the transition does limit overflow.
-            </div>
-          </div>
-        </div>
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="headingThree">
-            <button
-              class="accordion-button collapsed"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#collapseThree"
-              aria-expanded="false"
-              aria-controls="collapseThree">
-              Accordion Item #3
-            </button>
-          </h2>
-          <div
-            id="collapseThree"
-            class="accordion-collapse collapse"
-            aria-labelledby="headingThree"
-            data-bs-parent="#accordionExample">
-            <div class="accordion-body">
-              <strong>This is the third item's accordion body.</strong> It is hidden by default,
-              until the collapse plugin adds the appropriate classes that we use to style each
-              element. These classes control the overall appearance, as well as the showing and
-              hiding via CSS transitions. You can modify any of this with custom CSS or overriding
-              our default variables. It's also worth noting that just about any HTML can go within
-              the <code>.accordion-body</code>, though the transition does limit overflow.
-            </div>
-          </div>
-        </div>
-      </div>
+      <h2>
+        <i className="fas fa-shopping-bag"></i> Mis compras
+      </h2>
+      <Banner />
+      {!data
+        ? 'Cargando...'
+        : data.orders.map((item) => {
+            return (
+              <div className="card border-light mb-3" key={item.orderID}>
+                <div className="card-header">
+                  <i class="fas fa-tags"></i>Compra:{'  '}#{item.orderID}
+                </div>
+                <div className="card-body">
+                  <h4 className="card-title">Detalles</h4>
+                  <p className="card-text">
+                    <span className="fw-bold">Fecha: </span> {item.date}
+                  </p>
+                  <p className="card-text">
+                    <span className="fw-bold">Valor compra: </span>${item.value}
+                  </p>
+                  <table className="table table-hover">
+                    <thead>
+                      <tr>
+                        <th scope="col">Artículo</th>
+                        <th scope="col">Valor</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {item.products.map((products) => {
+                        return (
+                          <tr className="table-active">
+                            <th scope="row">{products.name}</th>
+                            <td>${products.price}</td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            );
+          })}
     </div>
   );
 };

@@ -1,13 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+/* 
+ todo: fijar barra de navegacion en el top de la app
+ */
 const Navbar = () => {
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-primary p-3">
       <div className="container-fluid">
-        <a className="navbar-brand" href="#">
-          RECOMENDAPP
-        </a>
+        <a className="navbar-brand fs-3 fw-bold">RECOMENDAPP</a>
         <button
           className="navbar-toggler"
           type="button"
@@ -22,17 +23,13 @@ const Navbar = () => {
         <div className="collapse navbar-collapse" id="navbarColor01">
           <ul className="navbar-nav me-auto">
             <li className="nav-item">
-              <Link to="/" className="link">
-                <a className="nav-link" href="#">
-                  <i className="fas fa-shopping-bag"></i> Mis compras
-                </a>
+              <Link to="/" className="link nav-link">
+                <i className="fas fa-shopping-bag"></i> Mis compras
               </Link>
             </li>
             <li className="nav-item">
-              <Link to="recomendaciones" className="link">
-                <a className="nav-link" href="#">
-                  <i className="fas fa-lightbulb"></i> Recomendaciones
-                </a>
+              <Link to="recomendaciones" className="link nav-link">
+                <i className="fas fa-lightbulb"></i> Recomendaciones
               </Link>
             </li>
           </ul>
