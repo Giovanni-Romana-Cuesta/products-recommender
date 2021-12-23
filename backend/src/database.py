@@ -30,3 +30,8 @@ class Database:
         query = "MATCH (:Order {orderID: $orderID})-[:HAS]->(products:Product) RETURN products"
         result = self.session.run(query, orderID=orderID)
         return result.data()
+
+    def getRecommendations(self, userID):
+        query = "MATCH (p:User {userID: $userID})-[:PURCHASE]->(product1:Product)-[:CATEGORY]->(c:Category)<-[:CATEGORY]-(product2:Product) WITH p,c,count(product1) as Category,product2 WHERE NOT ((p)-[:PURCHASE]->(product2)) AND Category>1 RETURN collect(product2) as recomendaciones;"
+        result = self.session.run(query, userID=userID)
+        return result.data()

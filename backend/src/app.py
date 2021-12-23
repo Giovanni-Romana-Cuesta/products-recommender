@@ -59,14 +59,12 @@ def getOrdersByUser(userID):
         i['products'] = aux
     return jsonify([{"orders": result}])
 
-
-
-@app.route('/ordersProducts')
+@app.route('/recommendations/<string:userID>')
 @cross_origin()
-def getOrdersProducts():
-    products = db.getOrderProducts("00001")
-    return jsonify(products)
-
+def getRecommendations(userID):
+    recommendations = db.getRecommendations(userID)
+    return jsonify(recommendations)
+ 
 
 if __name__ == '__main__':
     app.run(debug=True, port=4000)
