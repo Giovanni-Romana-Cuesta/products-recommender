@@ -1,19 +1,22 @@
 from flask import Flask, jsonify
 from neo4j.work import result
 from database import *
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 db = Database('neo4j://localhost:7687', 'neo4j', '1234')
 
-CORS(app)
 
 @app.route('/')
+@cross_origin()
 def index():
     return '<h1>Bienevenid@</h1>'
 
 
 @app.route('/users', methods=['GET'])
+@cross_origin()
 def getUsers():
     users = db.getUsers()
     usersList = []
@@ -23,6 +26,7 @@ def getUsers():
 
 
 @app.route('/products', methods=['GET'])
+@cross_origin()
 def getProducts():
     products = db.getProducts()
     result = []
@@ -32,6 +36,7 @@ def getProducts():
 
 
 @app.route('/orders', methods=['GET'])
+@cross_origin()
 def getOrders():
     orders = db.getOrders()
     result = []
@@ -40,6 +45,7 @@ def getOrders():
     return jsonify({"orders": result})
 
 @app.route('/orders/<string:userID>')
+@cross_origin()
 def getOrdersByUser(userID):
     orders = db.getOrdersByUser(userID)
     result = []
@@ -51,18 +57,15 @@ def getOrdersByUser(userID):
         for p in products:
             aux.append(p["products"])
         i['products'] = aux
-    return jsonify({"orders": result})
+    return jsonify([{"orders": result}])
 
 
 
 @app.route('/ordersProducts')
+@cross_origin()
 def getOrdersProducts():
     products = db.getOrderProducts("00001")
     return jsonify(products)
-
-
-
-
 
 
 if __name__ == '__main__':
