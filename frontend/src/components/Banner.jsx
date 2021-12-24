@@ -6,13 +6,13 @@ const Banner = () => {
     <div className="alert alert-dismissible alert-secondary">
       <strong>
         <i className="fas fa-lightbulb"></i>
-        {'  '}¿Ya no sabes que comprar?
+        {'  '}¿Quieres ver más productos?
       </strong>
       {'  '}Puedes hacer{' '}
       <Link to="recomendaciones" className="alert-link">
         click aquí
-      </Link>
-      , para ver un par de recomendaciones
+      </Link>{' '}
+      para ver algunas recomendaciones
     </div>
   );
 };

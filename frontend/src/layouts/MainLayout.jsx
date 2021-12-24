@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/mainlayout.css';
+import '../styles/styles.css';
 import Navbar from '../components/Navbar';
 import { Outlet } from 'react-router-dom';
 

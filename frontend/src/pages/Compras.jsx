@@ -17,7 +17,7 @@ const Compras = () => {
   return (
     <div className="p-4">
       <h2>
-        <i className="fas fa-shopping-bag"></i> Mis compras
+        <i className="fas fa-shopping-bag"></i>Mis compras
       </h2>
       <Banner />
       {!data
