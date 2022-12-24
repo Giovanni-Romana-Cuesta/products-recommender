@@ -1,1 +1,1 @@
-# technical-challenge
+# Products recommender
